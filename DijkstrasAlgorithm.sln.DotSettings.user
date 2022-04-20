@@ -1,4 +1,0 @@
-﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=_002FUsers_002Fymac_002FProjects_002FC_0023_002FMynad_002FCore_002Fbuild_002FRelease_002Fnet5_002E0_002FCore_002Edll/@EntryIndexedValue">True</s:Boolean>
-	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=_002FUsers_002Fymac_002FProjects_002FC_0023_002FMynad_002FCore_002Fbuild_002FRelease_002Fnet5_002E0_002Fref_002FCore_002Edll/@EntryIndexedValue">True</s:Boolean>
-	</wpf:ResourceDictionary>
