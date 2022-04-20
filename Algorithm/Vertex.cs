@@ -8,17 +8,17 @@ namespace Algorithm
 {
     public class Vertex
     {
-        private readonly Circle _circle;
-        private readonly Label _label;
         private bool _isSelected;
 
-        public Circle Circle => _circle;
-        
-        public int Number => int.Parse(_label.Text);
+        public Circle Circle { get; }
+
+        public Label Label { get; }
+
+        public int Number => int.Parse(Label.Text);
         
         public int Weight { get; set; }
 
-        public Vertex PreviousVertex { get; set; }
+        public Vertex? PreviousVertex { get; set; }
 
         public bool Selected
         {
@@ -26,20 +26,24 @@ namespace Algorithm
             set
             {
                 _isSelected = value;
-                _circle.BorderColor = value ? Color.GreenYellow : Color.Transparent;
+                Circle.BorderColor = value ? Color.GreenYellow : Color.Transparent;
             }
         }
         
-        public Vertex(Circle circle, Label label)
+        public Vertex(Circle circle, int number)
         {
-            _circle = circle;
-            _label = label;
+            Circle = circle;
+            Label = new Label(number.ToString(), 25f)
+            {
+                IsCenter = true,
+                Position = circle.Position
+            };
         }
 
         public void Draw()
         {
-            _circle.Draw();
-            _label.Draw();
+            Circle.Draw();
+            Label.Draw();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Algorithm
         private readonly Panel _rightPanel;
         private readonly Rectangle _workSpace;
 
-        private readonly Graph _graph;
+        private Graph _graph;
 
         private int _circleCount;
         
@@ -41,12 +41,14 @@ namespace Algorithm
             _workSpace = new Rectangle(Vector2.Zero, new SizeF(
                 Settings.Width - Settings.Width / 3, 
                 Settings.Height));
-
+            
             _graph = new Graph();
 
             var addPoint = new Button(Vector2.Zero, new SizeF(175, 35), "Add Point");
             var connectPoint = new Button(Vector2.Zero, new SizeF(175, 35), "Connect Points");
-            var calculateVertices = new Button(Vector2.Zero, new SizeF(175, 35), "Calculate");
+            var loadData = new Button(Vector2.Zero, new SizeF(175, 35), "Load Data");
+            var saveData = new Button(Vector2.Zero, new SizeF(175, 35), "Save Data");
+            var calculate = new Button(Vector2.Zero, new SizeF(175, 35), "Calculate");
 
             addPoint.OnButtonPressed += () =>
             {
@@ -64,9 +66,21 @@ namespace Algorithm
                 _isConnecting = true;
             };
 
-            calculateVertices.OnButtonPressed += () =>
+            loadData.OnButtonPressed += () =>
             {
-                
+                Console.WriteLine("Data Loaded");
+                _graph = DataManager.LoadData();
+            };
+
+            saveData.OnButtonPressed += () =>
+            {
+                Console.WriteLine("Data Saved");
+                DataManager.SaveData(_graph);
+            };
+
+            calculate.OnButtonPressed += () =>
+            {
+                _graph.CalculatePath(true);
             };
 
             var panelSize = new SizeF(
@@ -84,7 +98,9 @@ namespace Algorithm
                 new Label("Dijkstras Algorithm"),
                 addPoint,
                 connectPoint,
-                calculateVertices,
+                loadData,
+                saveData,
+                calculate,
                 new Button(Vector2.Zero, new SizeF(175, 35), "Exit")
                 {
                     OnButtonPressed = Close
@@ -106,12 +122,7 @@ namespace Algorithm
                     new Vertex(new Circle(mousePosition, 25f)
                         {
                             FillColor = Color.White
-                        }, 
-                        new Label(_circleCount++.ToString(), 25f)
-                        {
-                            IsCenter = true,
-                            Position = mousePosition
-                        }));
+                        }, _circleCount++));
             } else if (_isConnecting)
             {
                 var vertex = _graph.GetPointByPos(mousePosition);

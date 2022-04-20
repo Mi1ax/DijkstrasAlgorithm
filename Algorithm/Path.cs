@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Numerics;
 using Core.Drawing.GUI;
 using Core.Drawing.Shapes;
