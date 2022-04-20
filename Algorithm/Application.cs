@@ -6,6 +6,7 @@ using System.Numerics;
 using Core;
 using Core.Drawing.GUI;
 using Core.Drawing.Shapes;
+using Core.Input;
 using Color = System.Drawing.Color;
 using MouseButton = Core.Input.MouseButton;
 using Rectangle = Core.Drawing.Shapes.Rectangle;
@@ -15,16 +16,18 @@ namespace Algorithm
     public class Application : Window
     {
         private readonly Panel _rightPanel;
-        private Rectangle _workSpace;
+        private readonly Rectangle _workSpace;
 
-        private readonly List<Vertex> _vertices = new ();
-        private readonly List<Path> _paths = new ();
+        private readonly Graph _graph;
 
         private int _circleCount;
         
         private bool _isAdding;
         private bool _isConnecting;
-
+        
+        private bool _isTextEditing;
+        private Label? _editingLabel;
+        
         private Vertex? _selectedStart;
         private Vertex? _selectedEnd;
         
@@ -33,10 +36,13 @@ namespace Algorithm
             Settings.Title = "Application";
             Settings.Width = 1280;
             Settings.Height = 720;
+            _isTextEditing = false;
 
             _workSpace = new Rectangle(Vector2.Zero, new SizeF(
                 Settings.Width - Settings.Width / 3, 
                 Settings.Height));
+
+            _graph = new Graph();
 
             var addPoint = new Button(Vector2.Zero, new SizeF(175, 35), "Add Point");
             var connectPoint = new Button(Vector2.Zero, new SizeF(175, 35), "Connect Points");
@@ -85,60 +91,100 @@ namespace Algorithm
                 });
         }
 
-        private Vertex? GetCircleByPos(Vector2 mousePosition) => 
-            _vertices.Find(c => c.Circle.IsIn(mousePosition));
-
         protected override void Update(float deltaTime)
         {
+            var mousePosition = GetMousePosition();
+            
             _rightPanel.Update(deltaTime);
-            if (IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
+            
+            InputText();
+
+            if (!IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) return;
+            if (_isAdding && Utils.IsInRect(_workSpace, mousePosition))
             {
-                if (_isAdding && Utils.IsInRect(_workSpace, GetMousePosition()))
-                {
-                    _vertices.Add(
-                        new Vertex(new Circle(GetMousePosition(), 25f)
+                _graph.AddPoint(
+                    new Vertex(new Circle(mousePosition, 25f)
                         {
                             FillColor = Color.White
                         }, 
                         new Label(_circleCount++.ToString(), 25f)
                         {
                             IsCenter = true,
-                            Position = GetMousePosition()
+                            Position = mousePosition
                         }));
-                } else if (_isConnecting)
-                {
-                    var vertex = GetCircleByPos(GetMousePosition());
-                    if (vertex != null) {
-                        vertex.Selected = true;
-                        if (_selectedStart == null) _selectedStart = vertex;
-                        else if (_selectedEnd == null) _selectedEnd = vertex;
+            } else if (_isConnecting)
+            {
+                var vertex = _graph.GetPointByPos(mousePosition);
+                if (vertex != null) {
+                    vertex.Selected = true;
+                    if (_selectedStart == null) _selectedStart = vertex;
+                    else if (_selectedEnd == null) _selectedEnd = vertex;
 
-                        if (_selectedStart != null && _selectedEnd != null)
-                        {
-                            var path = new Path(_selectedStart, _selectedEnd, 0);
-                            _paths.Add(path);
+                    if (_selectedStart != null && _selectedEnd != null)
+                    {
+                        var path = new Path(_selectedStart, _selectedEnd, 0);
+                        _graph.AddPath(path);
 
-                            _selectedStart.Selected = false;
-                            _selectedEnd.Selected = false;
+                        _selectedStart.Selected = false;
+                        _selectedEnd.Selected = false;
 
-                            _selectedStart = null;
-                            _selectedEnd = null;
-                        }
+                        _selectedStart = null;
+                        _selectedEnd = null;
                     }
                 }
-            } else if (IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_RIGHT))
-            {
-                _paths.ForEach(path =>
-                {
                     
+                _graph.Paths.ForEach(path =>
+                {
+                    if (!Utils.IsInRect(path.Label.Rectangle, mousePosition)) return;
+                    path.Label.Text = "";
+                    _isTextEditing = true;
+                    _editingLabel = path.Label;
                 });
             }
         }
 
+        private void InputText()
+        {
+            if (!_isTextEditing || _editingLabel == null) return;
+            _editingLabel.Color = Color.Aqua;
+            var key = KeyboardInput.GetCharPressed();
+            while (key > 0)
+            {
+                switch (key)
+                {
+                    case >= 48 and <= 57:
+                    {
+                        if (_editingLabel != null) 
+                            _editingLabel.Text += (char)key;
+                        break;
+                    }
+                }
+
+                key = KeyboardInput.GetCharPressed();
+            }
+                
+            if (KeyboardInput.IsKeyPressed(Keys.KeyBackspace) 
+                && _editingLabel != null 
+                && _editingLabel.Text.Length >= 1)
+            {
+                _editingLabel.Text = _editingLabel.Text[..^1];
+            }
+
+            if (!KeyboardInput.IsKeyPressed(Keys.KeyEnter)) return;
+            _isTextEditing = false;
+            if (_editingLabel != null)
+            {
+                if (_editingLabel.Text.Length == 0) 
+                    _editingLabel.Text = "0";
+                _editingLabel.Color = Color.White;
+            }
+
+            _editingLabel = null;
+        }
+
         protected override void Draw()
         {
-            _paths.ForEach(p => p.Draw());
-            _vertices.ForEach(v => v.Draw());
+            _graph.Draw();
             _rightPanel.Draw();
         }
     }

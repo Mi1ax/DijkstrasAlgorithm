@@ -1,19 +1,47 @@
 ﻿using System.Collections.Generic;
+using System.Numerics;
 
 namespace Algorithm
 {
     public class Graph
     {
-        private readonly int _pointsCount;
-        private List<Vertex> _points;
-        private List<Path> _lines;
+        private int _pointsCount;
+        private readonly List<Vertex> _points;
+        private readonly List<Path> _lines;
 
-        public Graph(List<Vertex> _vertices, List<Path> lines)
+        public List<Path> Paths => _lines;
+
+        public Graph()
         {
-            _pointsCount = _vertices.Count;
             _lines = new List<Path>();
-            _points = _vertices;
+            _points = new List<Vertex>();
         }
+
+        public void AddPoint(Vertex point)
+        {
+            _points.Add(point);
+            _pointsCount = _points.Count;
+        }
+
+        public void AddPath(Path path)
+        {
+            _lines.Add(path);
+        }
+
+        public void Draw()
+        {
+            _lines.ForEach(l =>
+            {
+                l.Draw();
+            });
+            _points.ForEach(p =>
+            {
+                p.Draw();
+            });
+        }
+        
+        public Vertex? GetPointByPos(Vector2 mousePosition) => 
+            _points.Find(c => c.Circle.IsIn(mousePosition));
 
         public void CalculatePath(bool isShortest) 
         {  
@@ -37,5 +65,7 @@ namespace Algorithm
                 }
             }
         }
+        
+        
     }
 }
