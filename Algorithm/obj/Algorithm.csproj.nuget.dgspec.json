@@ -1,0 +1,134 @@
+{
+  "format": 1,
+  "restore": {
+    "S:\\Projects\\Rider\\C#\\DijkstrasAlgorithm\\Algorithm\\Algorithm.csproj": {}
+  },
+  "projects": {
+    "S:\\Projects\\Rider\\C#\\DijkstrasAlgorithm\\Algorithm\\Algorithm.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "S:\\Projects\\Rider\\C#\\DijkstrasAlgorithm\\Algorithm\\Algorithm.csproj",
+        "projectName": "Algorithm",
+        "projectPath": "S:\\Projects\\Rider\\C#\\DijkstrasAlgorithm\\Algorithm\\Algorithm.csproj",
+        "packagesPath": "C:\\Users\\kazak\\.nuget\\packages\\",
+        "outputPath": "S:\\Projects\\Rider\\C#\\DijkstrasAlgorithm\\Algorithm\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\kazak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "S:\\Projects\\Rider\\C#\\Mynad\\Core\\Core.csproj": {
+                "projectPath": "S:\\Projects\\Rider\\C#\\Mynad\\Core\\Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "S:\\Projects\\Rider\\C#\\Mynad\\Core\\Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "S:\\Projects\\Rider\\C#\\Mynad\\Core\\Core.csproj",
+        "projectName": "Core",
+        "projectPath": "S:\\Projects\\Rider\\C#\\Mynad\\Core\\Core.csproj",
+        "packagesPath": "C:\\Users\\kazak\\.nuget\\packages\\",
+        "outputPath": "S:\\Projects\\Rider\\C#\\Mynad\\Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\kazak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Raylib-CsLo": {
+              "target": "Package",
+              "version": "[4.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

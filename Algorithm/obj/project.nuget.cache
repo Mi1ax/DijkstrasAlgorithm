@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "pjTC9vQW5h9jXZ9Qc0bzuRPKGCZSlNgp8MnJDESkcpIfQL2Gk+rfM8//sbM12a51eStm1idL2ne9+esHM9dxeg==",
+  "success": true,
+  "projectFilePath": "S:\\Projects\\Rider\\C#\\DijkstrasAlgorithm\\Algorithm\\Algorithm.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kazak\\.nuget\\packages\\microsoft.toolkit.highperformance\\7.1.2\\microsoft.toolkit.highperformance.7.1.2.nupkg.sha512",
+    "C:\\Users\\kazak\\.nuget\\packages\\raylib-cslo\\4.0.1\\raylib-cslo.4.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
