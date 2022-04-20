@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "/Users/ymac/.dotnet/store/|arch|/|tfm|",
-      "/Users/ymac/.nuget/packages"
-    ]
-  }
-}
