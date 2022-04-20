@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorithm", "Algorithm\Algorithm.csproj", "{824883B2-8ED5-41C3-9662-41C4C815DC74}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "vendor\Mynad\Core\Core.csproj", "{DFFC5BBC-B6F7-4B96-86B4-D32810010E40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{824883B2-8ED5-41C3-9662-41C4C815DC74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{824883B2-8ED5-41C3-9662-41C4C815DC74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{824883B2-8ED5-41C3-9662-41C4C815DC74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFFC5BBC-B6F7-4B96-86B4-D32810010E40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFFC5BBC-B6F7-4B96-86B4-D32810010E40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFFC5BBC-B6F7-4B96-86B4-D32810010E40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFFC5BBC-B6F7-4B96-86B4-D32810010E40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

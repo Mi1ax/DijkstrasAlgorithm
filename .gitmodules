@@ -1,0 +1,3 @@
+[submodule "vendor/Mynad"]
+	path = vendor/Mynad
+	url = https://github.com/Mi1ax/Mynad

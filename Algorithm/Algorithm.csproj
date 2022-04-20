@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      
+      <ProjectReference Include="..\vendor\Mynad\Core\Core.csproj" />
     </ItemGroup>
 
 </Project>
