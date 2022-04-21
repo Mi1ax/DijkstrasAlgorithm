@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 
@@ -51,6 +49,7 @@ namespace Algorithm
             var connectPoint = new Button(Vector2.Zero, new SizeF(175, 35), "Connect Points");
             var loadData = new Button(Vector2.Zero, new SizeF(175, 35), "Load Data");
             var saveData = new Button(Vector2.Zero, new SizeF(175, 35), "Save Data");
+            var clearButton = new Button(Vector2.Zero, new SizeF(175, 35), "Clear Graph");
             var calculate = new Button(Vector2.Zero, new SizeF(175, 35), "Calculate");
             var checkBox = new CheckBox(Vector2.Zero, new SizeF(16, 16), "Shortest Path"); 
 
@@ -79,6 +78,7 @@ namespace Algorithm
                 _isTextEditing = false;
                 _editingLabel = null;
                 _graph = DataManager.LoadData();
+                _circleCount = _graph.VertexCount;
             };
 
             saveData.OnButtonPressed += () =>
@@ -88,10 +88,20 @@ namespace Algorithm
                 DataManager.SaveData(_graph);
             };
 
-            calculate.OnButtonPressed += () =>
+            clearButton.OnButtonPressed += () =>
             {
                 _isTextEditing = false;
                 _editingLabel = null;
+                _graph = new Graph();
+                _circleCount = 0;
+            };
+
+            calculate.OnButtonPressed += () =>
+            {
+                if (_circleCount == 0) return;
+                _isTextEditing = false;
+                _editingLabel = null;
+                _graph.ClearColor();
                 _graph.CalculatePath(checkBox.Checked);
                 _graph.PrintPath(checkBox.Checked);
             };
@@ -113,6 +123,7 @@ namespace Algorithm
                 connectPoint,
                 loadData,
                 saveData,
+                clearButton,
                 calculate,
                 checkBox,
                 new Button(Vector2.Zero, new SizeF(175, 35), "Exit")
@@ -175,7 +186,6 @@ namespace Algorithm
         private void InputText()
         {
             if (!_isTextEditing || _editingLabel == null) return;
-            //_editingLabel.Color = Color.DarkGray;
             var key = KeyboardInput.GetCharPressed();
             while (key > 0)
             {

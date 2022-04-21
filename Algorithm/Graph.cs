@@ -9,6 +9,8 @@ namespace Algorithm
     {
         private int _pointsCount;
 
+        public int VertexCount => _pointsCount;
+
         public List<Path> Paths { get; }
         public List<Vertex> Vertices { get; }
 
@@ -74,6 +76,19 @@ namespace Algorithm
                 }
             }
         }
+
+        public void ClearColor()
+        {
+            foreach (var path in Paths)
+            {
+                path.Line.Color = Color.Black;
+                path.Label.Color = Color.Black;
+            }
+            foreach (var vertex in Vertices)
+            {
+                vertex.Circle.FillColor = Color.White;
+            }
+        }
         
         public void PrintPath(bool isShortest)
         {
@@ -89,7 +104,11 @@ namespace Algorithm
             {
                 p.Circle.FillColor = isShortest ? Color.LightGreen : Color.OrangeRed;
                 var path = Paths.Find(path => path.Start == p.PreviousVertex && path.End == p);
-                if (path != null) path.Line.Color = isShortest ? Color.LightGreen : Color.OrangeRed;
+                if (path != null)
+                {
+                    path.Line.Color = isShortest ? Color.LightGreen : Color.OrangeRed;
+                    path.Label.Color = isShortest ? Color.LightGreen : Color.OrangeRed;
+                }
             });
         }
     }
