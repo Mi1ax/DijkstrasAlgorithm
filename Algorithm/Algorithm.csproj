@@ -14,4 +14,12 @@
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Properties\PublishProfiles" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Properties\PublishProfiles\FolderProfile.pubxml" />
+    </ItemGroup>
+
 </Project>
