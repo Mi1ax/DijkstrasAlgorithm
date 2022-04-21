@@ -26,7 +26,7 @@ namespace Algorithm
             set
             {
                 _isSelected = value;
-                Circle.BorderColor = value ? Color.GreenYellow : Color.Transparent;
+                Circle.BorderColor = value ? Color.Green : Color.Black;
             }
         }
         

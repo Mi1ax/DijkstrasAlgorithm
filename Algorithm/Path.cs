@@ -24,12 +24,32 @@ namespace Algorithm
             
         public Path(Vertex start, Vertex end, int weight)
         {
-            Line = new Line(start.Circle.Center, end.Circle.Center);
-            Label = new Label(weight.ToString(), 20)
+            Line = new Line(start.Circle.Center, end.Circle.Center)
+            {
+                Color = Color.Black,
+                Thickness = 3
+            };
+
+            const int number = 15;
+            var labelPos = (Line.PositionTo + Line.PositionFrom) / 2;
+            if ((Line.PositionTo.X > Line.PositionFrom.X && Line.PositionTo.Y < Line.PositionFrom.Y) ||
+                Line.PositionFrom.X > Line.PositionTo.X && Line.PositionFrom.Y < Line.PositionTo.Y)
+            {
+                labelPos += new Vector2(-number);
+            } else if ((Line.PositionTo.X > Line.PositionFrom.X && Line.PositionTo.Y > Line.PositionFrom.Y) ||
+                       Line.PositionFrom.X > Line.PositionTo.X && Line.PositionFrom.Y > Line.PositionTo.Y)
+            {
+                labelPos += new Vector2(number, -number);
+            } else if (Math.Abs(Line.PositionTo.X - Line.PositionFrom.X) < 0.1)
+            {
+                labelPos += new Vector2(number, 0);
+            }
+            
+            Label = new Label(weight.ToString(), 30)
             {
                 IsCenter = true,
-                Position = new Vector2(((Line.PositionFrom.X + Line.PositionTo.X)/2) + 18, (Line.PositionFrom.Y + Line.PositionTo.Y)/2),
-                Color = Color.White
+                Position = labelPos,
+                Color = Color.Black
             };
             
             Start = start;

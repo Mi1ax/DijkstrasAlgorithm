@@ -40,7 +40,10 @@ namespace Algorithm
 
             _workSpace = new Rectangle(Vector2.Zero, new SizeF(
                 Settings.Width - Settings.Width / 3, 
-                Settings.Height));
+                Settings.Height))
+            {
+                FillColor = Color.Wheat
+            };
             
             _graph = new Graph();
 
@@ -53,6 +56,8 @@ namespace Algorithm
 
             addPoint.OnButtonPressed += () =>
             {
+                _isTextEditing = false;
+                _editingLabel = null;
                 addPoint.Disable = true;
                 connectPoint.Disable = false;
                 _isAdding = true;
@@ -61,6 +66,8 @@ namespace Algorithm
 
             connectPoint.OnButtonPressed += () =>
             {
+                _isTextEditing = false;
+                _editingLabel = null;
                 addPoint.Disable = false;
                 connectPoint.Disable = true;
                 _isAdding = false;
@@ -69,16 +76,22 @@ namespace Algorithm
 
             loadData.OnButtonPressed += () =>
             {
+                _isTextEditing = false;
+                _editingLabel = null;
                 _graph = DataManager.LoadData();
             };
 
             saveData.OnButtonPressed += () =>
             {
+                _isTextEditing = false;
+                _editingLabel = null;
                 DataManager.SaveData(_graph);
             };
 
             calculate.OnButtonPressed += () =>
             {
+                _isTextEditing = false;
+                _editingLabel = null;
                 _graph.CalculatePath(checkBox.Checked);
                 _graph.PrintPath(checkBox.Checked);
             };
@@ -119,10 +132,14 @@ namespace Algorithm
             if (!IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) return;
             if (_isAdding && Utils.IsInRect(_workSpace, mousePosition))
             {
+                _isTextEditing = false;
+                _editingLabel = null;
                 _graph.AddPoint(
-                    new Vertex(new Circle(mousePosition, 25f)
+                    new Vertex(new Circle(mousePosition, 30f)
                         {
-                            FillColor = Color.White
+                            FillColor = Color.White,
+                            BorderColor = Color.Black,
+                            BorderThickness = 3f
                         }, _circleCount++));
             } else if (_isConnecting)
             {
@@ -148,7 +165,7 @@ namespace Algorithm
                 _graph.Paths.ForEach(path =>
                 {
                     if (!Utils.IsInRect(path.Label.Rectangle, mousePosition)) return;
-                    path.Label.Text = "";
+                    path.Label.Text = "_";
                     _isTextEditing = true;
                     _editingLabel = path.Label;
                 });
@@ -158,7 +175,7 @@ namespace Algorithm
         private void InputText()
         {
             if (!_isTextEditing || _editingLabel == null) return;
-            _editingLabel.Color = Color.Aqua;
+            //_editingLabel.Color = Color.DarkGray;
             var key = KeyboardInput.GetCharPressed();
             while (key > 0)
             {
@@ -166,8 +183,13 @@ namespace Algorithm
                 {
                     case >= 48 and <= 57:
                     {
-                        if (_editingLabel != null) 
-                            _editingLabel.Text += (char)key;
+                        if (_editingLabel != null)
+                        {
+                            if (_editingLabel.Text == "_")
+                                _editingLabel.Text = "";
+                            _editingLabel.Text += (char) key;
+                        }
+
                         break;
                     }
                 }
@@ -177,9 +199,14 @@ namespace Algorithm
                 
             if (KeyboardInput.IsKeyPressed(Keys.KeyBackspace) 
                 && _editingLabel != null 
-                && _editingLabel.Text.Length >= 1)
+                && _editingLabel.Text.Length > 1)
             {
                 _editingLabel.Text = _editingLabel.Text[..^1];
+            } else if (KeyboardInput.IsKeyPressed(Keys.KeyBackspace)
+                       && _editingLabel != null
+                       && _editingLabel.Text.Length == 1)
+            {
+                _editingLabel.Text = "_";
             }
 
             if (!KeyboardInput.IsKeyPressed(Keys.KeyEnter)) return;
@@ -188,7 +215,7 @@ namespace Algorithm
             {
                 if (_editingLabel.Text.Length == 0) 
                     _editingLabel.Text = "0";
-                _editingLabel.Color = Color.White;
+                _editingLabel.Color = Color.Black;
             }
 
             _editingLabel = null;
@@ -196,6 +223,7 @@ namespace Algorithm
 
         protected override void Draw()
         {
+            _workSpace.Draw();
             _graph.Draw();
             _rightPanel.Draw();
         }
