@@ -49,6 +49,7 @@ namespace Algorithm
             var loadData = new Button(Vector2.Zero, new SizeF(175, 35), "Load Data");
             var saveData = new Button(Vector2.Zero, new SizeF(175, 35), "Save Data");
             var calculate = new Button(Vector2.Zero, new SizeF(175, 35), "Calculate");
+            var checkBox = new CheckBox(Vector2.Zero, new SizeF(16, 16), "Shortest Path"); 
 
             addPoint.OnButtonPressed += () =>
             {
@@ -68,19 +69,18 @@ namespace Algorithm
 
             loadData.OnButtonPressed += () =>
             {
-                Console.WriteLine("Data Loaded");
                 _graph = DataManager.LoadData();
             };
 
             saveData.OnButtonPressed += () =>
             {
-                Console.WriteLine("Data Saved");
                 DataManager.SaveData(_graph);
             };
 
             calculate.OnButtonPressed += () =>
             {
-                _graph.CalculatePath(true);
+                _graph.CalculatePath(checkBox.Checked);
+                _graph.PrintPath(checkBox.Checked);
             };
 
             var panelSize = new SizeF(
@@ -101,6 +101,7 @@ namespace Algorithm
                 loadData,
                 saveData,
                 calculate,
+                checkBox,
                 new Button(Vector2.Zero, new SizeF(175, 35), "Exit")
                 {
                     OnButtonPressed = Close

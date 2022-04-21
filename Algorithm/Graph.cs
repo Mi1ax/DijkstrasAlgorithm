@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Numerics;
 
 namespace Algorithm
@@ -58,6 +60,7 @@ namespace Algorithm
                 {
                     line.Start = Vertices[point];
                     line.End = Vertices[line.End.Number];
+                    
                     if (Vertices[line.End.Number].Weight == 0
                         || (isShortest ? line.Start.Weight + line.Weight < Vertices[line.End.Number].Weight 
                             : line.Start.Weight + line.Weight > Vertices[line.End.Number].Weight))
@@ -70,8 +73,24 @@ namespace Algorithm
                     line.Start = Vertices[point];
                 }
             }
-            
-            
+        }
+        
+        public void PrintPath(bool isShortest)
+        {
+            var tempList = new List<Vertex>();
+            var point = Vertices[^1];
+            do
+            {
+                tempList.Add(point);
+                point = point.PreviousVertex;
+            } while (point != null);
+            tempList.Reverse();
+            tempList.ForEach(p =>
+            {
+                p.Circle.FillColor = isShortest ? Color.LightGreen : Color.OrangeRed;
+                var path = Paths.Find(path => path.Start == p.PreviousVertex && path.End == p);
+                if (path != null) path.Line.Color = isShortest ? Color.LightGreen : Color.OrangeRed;
+            });
         }
     }
 }
